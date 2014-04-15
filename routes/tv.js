@@ -10,4 +10,12 @@ module.exports = function(app) {
             })
         })
     });
+
+    app.get(endpoint + '/down', function(req, res) {
+        TV.send('KEY_VOLDOWN').then(function() {
+            res.json({
+                message: 'ok'
+            })
+        })
+    });
 };
