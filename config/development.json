@@ -2,7 +2,7 @@
     "env": "localhost",
     "host": {
         "ip": "192.168.1.154",
-        "mac": "",
+        "mac": "60:c5:47:91:ce:94",
         "port": 3000,
         "name": "NodeJS Media Server"
     },
@@ -13,7 +13,7 @@
         "ip": "192.168.1.13",
         "port": 55000,
         "appString": "iphone..iapp.samsung",
-        "tvAppString": "iphone.UN60ES8000.iapp.samsung"
+        "tvAppString": "iphone.UN60D6000.iapp.samsung"
     },
     "blaster": {
         "ip": "192.168.1.5000",

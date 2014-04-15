@@ -3,90 +3,74 @@ var config = require('../config/'),
     Promise = require('bluebird'),
     _ = require('underscore');
 
-var base64Encode = function(string) {
+var chr = String.fromCharCode,
+    base64Encode = function(string) {
         return new Buffer(string).toString('base64');
     },
-    _makeResolver = function(opts) {
-        console.log("SamsungTV Client :: Sending %s command", opts.command);
+    _makeResolver = function(command) {
+        console.log("SamsungTV Client :: Sending %s command", command);
         var resolver = Promise.defer();
         resolver.promise.then(function() {
-            console.log("SamsungTV Client :: Successful %s command", opts.command);
+            console.log("SamsungTV Client :: Successful %s command", command);
         }, function(err) {
-            console.error("SamsungTV Client :: Error sending %s command", opts.method, err);
+            console.error("SamsungTV Client :: Error sending %s command", command, err);
         });
         return resolver;
     };
 
-var _socketChunkOne = function (samsung) {
+var _socketChunkOne = function () {
     var ipEncoded = base64Encode(config.get('host.ip')),
         macEncoded = base64Encode(config.get('host.mac'));
 
-    var message = String.fromCharCode(0x64) +
-        String.fromCharCode(0x00) +
-        String.fromCharCode(ipEncoded.length) +
-        String.fromCharCode(0x00) +
+    var message = chr(0x64) +
+        chr(0x00) +
+        chr(ipEncoded.length) +
+        chr(0x00) +
         ipEncoded +
-        String.fromCharCode(macEncoded.length) +
-        String.fromCharCode(0x00) +
+        chr(macEncoded.length) +
+        chr(0x00) +
         macEncoded +
-        String.fromCharCode(base64Encode(config.get('host.name')).length) +
-        String.fromCharCode(0x00) +
+        chr(base64Encode(config.get('host.name')).length) +
+        chr(0x00) +
         base64Encode(config.get('host.name'));
 
-    return String.fromCharCode(0x00) +
-        String.fromCharCode(config.get('tv.appString').length) +
-        String.fromCharCode(0x00) +
+    return chr(0x00) +
+        chr(config.get('tv.appString').length) +
+        chr(0x00) +
         config.get('tv.appString') +
-        String.fromCharCode(message.length) +
-        String.fromCharCode(0x00) +
+        chr(message.length) +
+        chr(0x00) +
         message;
 };
 
-var _socketChunkTwo = function(opts) {
-    var options = _.extend({}, opts);
+var _socketChunkTwo = function(command) {
+    var message = '';
 
-    var command = 'KEY_' + options.command,
-        message = '';
-
-    if(options.command) {
-        message = String.fromCharCode(0x00) +
-                  String.fromCharCode(0x00) +
-                  String.fromCharCode(0x00) +
-                  String.fromCharCode(base64Encode(command).length) +
-                  String.fromCharCode(0x00) +
+    if (command) {
+        message = chr(0x00) +
+                  chr(0x00) +
+                  chr(0x00) +
+                  chr(base64Encode(command).length) +
+                  chr(0x00) +
                   base64Encode(command);
 
-        return String.fromCharCode(0x00) +
-               String.fromCharCode(config.get('tv.tvAppString').length) +
-               String.fromCharCode(0x00) +
+        return chr(0x00) +
+               chr(config.get('tv.tvAppString').length) +
+               chr(0x00) +
                config.get('tv.tvAppString') +
-               String.fromCharCode(message.length) +
-               String.fromCharCode(0x00) +
-               message;
-    } else if(options.text) {
-        message = String.fromCharCode(0x01) +
-                  String.fromCharCode(0x00) +
-                  String.fromCharCode(base64Encode(options.text).length) +
-                  String.fromCharCode(0x00) +
-                  base64Encode(options.text);
-
-        return String.fromCharCode(0x01) +
-               String.fromCharCode(config.get('tv.appString').length) +
-               String.fromCharCode(0x00) +
-               config.get('tv.appString') +
-               String.fromCharCode(message.length) +
-               String.fromCharCode(0x00) +
+               chr(message.length) +
+               chr(0x00) +
                message;
     }
 }
 
-var _send = function(opts) {
-    var resolver = _makeResolver(opts),
+var _send = function(command) {
+    var resolver = _makeResolver(command),
         socket = net.connect(config.get('tv.port'), config.get('tv.ip'));
 
     socket.on('connect', function() {
         socket.write(_socketChunkOne());
-        socket.write(_socketChunkTwo(opts));
+        socket.write(_socketChunkTwo(command));
         socket.end();
         resolver.resolve();
     });
