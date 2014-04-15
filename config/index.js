@@ -3,13 +3,23 @@ var path = require('path');
 
 var config = convict({
     env: {
-        doc: "The applicaton environment.",
-        format: ["localhost", "production"],
-        default: "localhost",
+        doc: "The application environment.",
+        format: ["development", "production"],
+        default: "development",
         env: "NODE_ENV"
     },
+    host: {
+
+    },
+    app: {
+        secret: {
+            doc: "session secret",
+            format: String,
+            default: ""
+        }
+    },
     tv: {
-        IP: {
+        ip: {
             doc: "IP address of the TV",
             format: String,
             default: ""
@@ -21,7 +31,7 @@ var config = convict({
         }
     },
     blaster: {
-        IP: {
+        ip: {
             doc: "IP address of the blaster",
             format: String,
             default: ""
