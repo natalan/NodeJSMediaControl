@@ -10,7 +10,8 @@
         "ip": "192.168.1.13",
         "port": 55000,
         "appString": "iphone..iapp.samsung",
-        "tvAppString": "iphone.UN60ES8000.iapp.samsung"
+        "tvAppString": "iphone.UN60ES8000.iapp.samsung",
+        "timeout": 1000
     },
     "blaster": {
         "ip": "192.168.1.5000",

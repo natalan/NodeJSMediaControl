@@ -68,6 +68,8 @@ var _send = function(command) {
     var resolver = _makeResolver(command),
         socket = net.connect(config.get('tv.port'), config.get('tv.ip'));
 
+    socket.setTimeout(config.get('tv.timeout'));
+
     socket.on('connect', function() {
         socket.write(_socketChunkOne());
         socket.write(_socketChunkTwo(command));
@@ -84,6 +86,10 @@ var _send = function(command) {
             errorMsg = 'SamsungTV Client: ' + error.code;
         }
         resolver.reject(errorMsg);
+    });
+
+    socket.on('timeout', function() {
+        resolver.reject("Timeout");
     });
 
     return resolver.promise;
