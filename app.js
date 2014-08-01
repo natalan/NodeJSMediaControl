@@ -26,10 +26,7 @@ app.configure(function() {
             signed: true
         }
     }));
-    app.use(express.csrf());
     app.use(function (req, res, next) {
-        res.locals.token = req.csrfToken();
-        // iframe protection
         res.header('X-FRAME-OPTIONS', "SAMEORIGIN");
         next();
     });
