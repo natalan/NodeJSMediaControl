@@ -93,13 +93,13 @@ function _learn() {
         options = _.extend({}, globalOptions, methodOptions),
         resolver = _makeResolver(methodOptions);
 
-    request(options, function (error, response, networkObject) {
+    request(options, function (error, response, learnObject) {
         if (error) {
             resolver.reject(JSON.stringify(error));
         } else if (response.statusCode != 200) {
-            resolver.reject(JSON.stringify(networkObject));
+            resolver.reject(JSON.stringify(learnObject));
         } else {
-            resolver.resolve(networkObject);
+            resolver.resolve(learnObject);
         }
     });
 
