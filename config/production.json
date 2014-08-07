@@ -1,7 +1,7 @@
 {
     "env": "production",
     "host": {
-        "url": "http://localhost",
+        "url": "http://natalan.herokuapp.com/",
         "ip": "192.168.1.154",
         "mac": "60:c5:47:91:ce:94",
         "port": 80,
