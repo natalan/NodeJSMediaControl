@@ -9,7 +9,12 @@ var config = convict({
         env: "NODE_ENV"
     },
     host: {
-
+        port: {
+            doc: "application port",
+            format: Number,
+            default: "3000",
+            env: "PORT"
+        }
     },
     app: {
         secret: {
