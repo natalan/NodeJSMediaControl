@@ -34,7 +34,6 @@ $(function() {
     $('.commands').on('click', 'button', function(e) {
         e.preventDefault();
         var body = {
-            device: $(this).data("device"),
             command: $(this).data("command")
         };
         $alertInfo.removeClass('hidden').text('Sending '+ body.command + ' to ' + body.device);

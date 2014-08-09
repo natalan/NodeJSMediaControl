@@ -1,72 +1,42 @@
-var Blaster = require('../../clients/BlasterClient'),
-    config = require('../../config/'),
+var config = require('../../config/'),
+    iTach = require('node-itach'),
     _ = require('underscore');
 
+var Blaster = new iTach({
+    host: config.get('blaster.ip')
+});
 var endpoint = '/api/blaster';
 
+var COMMANDS = require('../../commands.json');
+
 module.exports = function(app) {
-    app.get(endpoint + '/network', function(req, res) {
-        Blaster.network().then(function(network) {
-            res.json(network);
-        })
-    });
-
-    app.get(endpoint + '/connectors', function(req, res) {
-        Blaster.connectors().then(function(network) {
-            res.json(network);
-        })
-    });
-
-    app.get(endpoint + '/files', function(req, res) {
-        Blaster.files().then(function(files) {
-            res.json(files);
-        })
-    });
-
     app.post(endpoint + '/learn', function(req, res) {
-        Blaster.learn().then(function(code) {
-            res.json(code);
-        }).catch(function(err) {
-            res.json(err);
-        })
+        Blaster.learn(function done(err, code) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(code);
+            }
+        });
     });
-
-
 
     app.post(endpoint + '/send', function(req, res) {
-        var device = req.body.device,
-            command = req.body.command;
-
-        if (!device || !command) {
-            res.json(400, "Both device and command are required");
-        }
-        var command = _.extend({}, config.get("irParams." + device), {
-            irCode: config.get("commands." + device + "." + command)
-        });
-
-        console.log("Sending command to Blaster: ", command);
-
-        Blaster.send(command).then(function(result) {
-            res.json(result);
-        }).catch(function (err) {
-            res.json({
-                error: err
+        var command = COMMANDS[req.body.command];
+        if (!command) {
+            res.json(400, {message: "Command not found"});
+        } else {
+            Blaster.send({
+                ir: command
+            }, function done(err) {
+                if (err) {
+                    res.json({
+                        error: err
+                    });
+                } else {
+                    res.json({message: 'ok'});
+                }
             });
-        });
-    });
-
-    app.post('/test', function(req, res) {
-        console.log('incoming POST. content')
-        console.dir(req.body);
-        res.json({
-            "Received from you": req.body || {}
-        });
-    });
-
-    app.get('/do', function(req, res) {
-        Blaster.test().then(function(result) {
-            res.json(result);
-        })
+        }
     });
 
     return config.get('host.url') + endpoint;

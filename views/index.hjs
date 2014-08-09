@@ -103,18 +103,19 @@
               </thead>
                 <tbody>
                 <tr>
-                    <td><button type="button" class="btn btn-default" data-device="tv" data-command="power"><span class="glyphicon glyphicon-off"></span></button></td>
+                    <td><button type="button" class="btn btn-default" data-command="tv.power"><span class="glyphicon glyphicon-off"></span></button></td>
                     <td>Toggle TV power</td>
                 </tr>
                 <tr>
                     <td>
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default" data-device="receiver" data-command="power"><span class="glyphicon glyphicon-off"></span></button>
-                                <button type="button" class="btn btn-default" data-device="receiver" data-command="volumeDown"><span class="glyphicon glyphicon-volume-down"></span></button>
-                                <button type="button" class="btn btn-default" data-device="receiver" data-command="volumeUp"><span class="glyphicon glyphicon-volume-up"></span></button>
-                                <button type="button" class="btn btn-default" data-device="receiver" data-command="sourceDVD"><span class="glyphicon glyphicon-stats"></span></button>
-                                <button type="button" class="btn btn-default" data-device="receiver" data-command="sourceDVR"><span class="glyphicon glyphicon-facetime-video"></span></button>
+                                <button type="button" class="btn btn-default" data-command="receiver.powerOff"><span class="glyphicon glyphicon-off"></span></button>
+                                <button type="button" class="btn btn-default" data-command="receiver.powerOn"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                <button type="button" class="btn btn-default" data-command="receiver.volumeDown"><span class="glyphicon glyphicon-volume-down"></span></button>
+                                <button type="button" class="btn btn-default" data-command="receiver.volumeUp"><span class="glyphicon glyphicon-volume-up"></span></button>
+                                <button type="button" class="btn btn-default" data-command="receiver.dvd"><span class="glyphicon glyphicon-stats"></span></button>
+                                <button type="button" class="btn btn-default" data-command="receiver.sourceDVR"><span class="glyphicon glyphicon-facetime-video"></span></button>
                             </div>
                         </div>
                     </td>
