@@ -14,7 +14,7 @@
     "newrelic": "^1.9.1",
     "node-parse-api": "^0.2.8",
     "request": "^2.34.0",
-    "samsung-remote": "1.2.2",
+    "samsung-remote": "1.2.3",
     "underscore": "^1.6.0",
     "winston": "^0.7.3"
   }

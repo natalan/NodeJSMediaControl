@@ -42,6 +42,7 @@ module.exports = function(app) {
     });
 
     app.get(endpoint + '/status', function(req, res) {
+        console.log('checking alive status...');
         remote.isAlive(function(err) {
             if (err) {
                 res.json(400, {
