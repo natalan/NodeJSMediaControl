@@ -46,7 +46,7 @@ module.exports = function(app) {
 
     app.get(endpoint + '/status', function(req, res) {
         console.log('checking alive status...');
-        remote.send('KEY_PLAY', function(err) {
+        remote.send('KEY_YELLOW', function(err) {
             if (err) {
                 res.json(400, {
                     message: err
