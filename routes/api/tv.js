@@ -33,24 +33,27 @@ module.exports = function(app) {
     app.get(endpoint + '/power', function(req, res) {
         remote.send('KEY_POWEROFF', function(err) {
             if (err) {
-                throw new Error(err);
+                res.json(400, {
+                    message: err
+                });
+            } else {
+                res.json({
+                    message: 'ok'
+                });
             }
-            res.json({
-                message: 'ok'
-            });
         });
     });
 
     app.get(endpoint + '/status', function(req, res) {
         console.log('checking alive status...');
-        remote.isAlive(function(err) {
+        remote.send('KEY_PLAY', function(err) {
             if (err) {
                 res.json(400, {
-                    message: 'off'
+                    message: err
                 });
             } else {
                 res.json({
-                    message: 'on'
+                    message: 'ok'
                 });
             }
         });
