@@ -45,13 +45,15 @@ module.exports = function(app) {
     });
 
     app.get(endpoint + '/status', function(req, res) {
-        console.log('checking alive status...');
+        console.log('TV Route :: Checking alive status...');
         remote.send('KEY_YELLOW', function(err) {
             if (err) {
+                console.log('TV Route :: TV is OFF');
                 res.json({
                     message: 'off'
                 });
             } else {
+                console.log('TV Route :: TV is ON');
                 res.json({
                     message: 'on'
                 });
