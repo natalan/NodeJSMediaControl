@@ -55,5 +55,19 @@ module.exports = function(app) {
         });
     });
 
+    app.post('/test', function(req, res) {
+        console.log('incoming POST. content')
+        console.dir(req.body);
+        res.json({
+            "Received from you": req.body || {}
+        });
+    });
+
+    app.get('/do', function(req, res) {
+        Blaster.test().then(function(result) {
+            res.json(result);
+        })
+    });
+
     return config.get('host.url') + endpoint;
 };
