@@ -48,12 +48,12 @@ module.exports = function(app) {
         console.log('checking alive status...');
         remote.send('KEY_YELLOW', function(err) {
             if (err) {
-                res.json(400, {
-                    message: err
+                res.json({
+                    message: 'off'
                 });
             } else {
                 res.json({
-                    message: 'ok'
+                    message: 'on'
                 });
             }
         });
