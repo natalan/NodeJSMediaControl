@@ -11,9 +11,10 @@
     "express": "3.5.1",
     "hjs": "*",
     "less-middleware": "~0.1.15",
+    "newrelic": "^1.9.1",
     "node-parse-api": "^0.2.8",
     "request": "^2.34.0",
-    "samsung-remote": "1.1.0",
+    "samsung-remote": "1.2.2",
     "underscore": "^1.6.0",
     "winston": "^0.7.3"
   }

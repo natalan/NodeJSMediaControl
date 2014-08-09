@@ -1,7 +1,8 @@
 var config = require('../../config/index');
 var SamsungRemote = require('samsung-remote');
 var remote = new SamsungRemote({
-    ip: config.get('tv.ip')
+    ip: config.get('tv.ip'),
+    timeout: 1000
 });
 
 var endpoint = '/api/tv';
@@ -37,6 +38,20 @@ module.exports = function(app) {
             res.json({
                 message: 'ok'
             });
+        });
+    });
+
+    app.get(endpoint + '/status', function(req, res) {
+        remote.isAlive(function(err) {
+            if (err) {
+                res.json(400, {
+                    message: 'off'
+                });
+            } else {
+                res.json({
+                    message: 'on'
+                });
+            }
         });
     });
 

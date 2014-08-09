@@ -5,8 +5,6 @@
 collections.zip
 /node_modules/
 /node_modules
-collections.min.css
-collections.min.js
 newrelic_agent.log
 /public/version.json
 stylesheets/main.css
