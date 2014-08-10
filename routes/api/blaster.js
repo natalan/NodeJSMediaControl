@@ -21,12 +21,15 @@ module.exports = function(app) {
     });
 
     app.post(endpoint + '/send', function(req, res) {
+        console.log('*** iTach :: Command: ', req.body.command);
+
         var command = COMMANDS[req.body.command];
         if (!command) {
-            console.log('itach :: Received command %s but not found in hash', command);
-            res.json(400, {message: "Command not found"});
+            console.log('*** itach :: Received command %s but not found in hash', req.body.command);
+            res.json(400, {
+                message: "Command not found"
+            });
         } else {
-            console.log('itach :: Sending command %s', command);
             Blaster.send({
                 ir: command
             }, function done(err) {
