@@ -23,6 +23,7 @@ module.exports = function(app) {
     app.post(endpoint + '/send', function(req, res) {
         var command = COMMANDS[req.body.command];
         if (!command) {
+            console.log('Received command %s but not found in hash', command);
             res.json(400, {message: "Command not found"});
         } else {
             Blaster.send({

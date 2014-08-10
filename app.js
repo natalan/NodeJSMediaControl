@@ -42,11 +42,7 @@ app.configure(function() {
     app.use(express.compress());
     app.use(express.static(path.join(__dirname, 'public')));
 
-    if (config.get("env") == "development") {
-        app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    } else {
-        app.use(express.errorHandler());
-    }
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 
