@@ -12,7 +12,7 @@
     "hjs": "*",
     "less-middleware": "~0.1.15",
     "newrelic": "^1.9.1",
-    "node-itach": "1.0.3",
+    "node-itach": "1.0.5",
     "node-parse-api": "^0.2.8",
     "request": "^2.34.0",
     "samsung-remote": "1.2.4",
