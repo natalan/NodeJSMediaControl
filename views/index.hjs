@@ -115,7 +115,7 @@
                                 <button type="button" class="btn btn-default" data-command="receiver.volumeDown"><span class="glyphicon glyphicon-volume-down"></span></button>
                                 <button type="button" class="btn btn-default" data-command="receiver.volumeUp"><span class="glyphicon glyphicon-volume-up"></span></button>
                                 <button type="button" class="btn btn-default" data-command="receiver.dvd"><span class="glyphicon glyphicon-stats"></span></button>
-                                <button type="button" class="btn btn-default" data-command="receiver.sourceDVR"><span class="glyphicon glyphicon-facetime-video"></span></button>
+                                <button type="button" class="btn btn-default" data-command="receiver.dvr"><span class="glyphicon glyphicon-facetime-video"></span></button>
                             </div>
                         </div>
                     </td>
