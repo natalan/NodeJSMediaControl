@@ -21,7 +21,7 @@ module.exports = function(app) {
     });
 
     app.post(endpoint + '/send', function(req, res) {
-        console.log('*** iTach :: Command: ', req.body.command);
+        console.debug('*** iTach :: Command: ', req.body.command);
 
         var command = COMMANDS[req.body.command];
         if (!command) {
