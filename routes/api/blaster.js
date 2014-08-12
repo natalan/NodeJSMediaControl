@@ -21,11 +21,11 @@ module.exports = function(app) {
     });
 
     app.post(endpoint + '/send', function(req, res) {
-        console.debug('*** iTach :: Command: ', req.body.command);
+        console.log('*** iTach :: Command: ', req.body.command);
 
         var command = COMMANDS[req.body.command];
         if (!command) {
-            console.log('*** itach :: Received command %s but not found in hash', req.body.command);
+            console.log('*** iTach :: Received command %s but not found in hash', req.body.command);
             res.json(400, {
                 message: "Command not found"
             });
