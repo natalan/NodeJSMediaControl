@@ -26,7 +26,7 @@ metadata {
     }
 
     standardTile("onTester", "device.image", width: 1, height: 1) {
-      state "on", label: "push", action: "on", icon: "", backgroundColor: "#79b821"
+      state "on", label: "turn on", action: "switch.on", icon: "", backgroundColor: "#79b821"
     }
 
     main "switch"
@@ -81,8 +81,7 @@ def parse(String description) {
 def on() {
   log.debug "on :: Sending on command to the api"
   api("on", [
-    "device" : "tv",
-    "command" : "power"
+    "command": "tv.power"
   ]) { response ->
     log.debug "on :: Response: $response.data.message"
     if (response.data.message == "ok") {
