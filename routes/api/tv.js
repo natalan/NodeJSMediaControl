@@ -68,6 +68,7 @@ module.exports = function(app) {
         };
 
         if (lastChecked + checkThreshhold < now) {
+            console.log('TV Route :: using tv status from cache');
             _done(tvIsOFF);
         } else {
             lastChecked = now;
