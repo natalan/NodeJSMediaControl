@@ -35,19 +35,19 @@ module.exports = function(app) {
         }
 
         if (!device.type || !device.id) {
-            return console.error('ifttt :: device type or id is not set');
+            console.error('ifttt :: device type or id is not set');
         }
 
         if (device.type == "camera") {
             var camera = Cameras.get(device.id);
             if (!camera) {
-                return console.error('ifttt :: cannot find camera with id: %s', device.id);
+                console.error('ifttt :: cannot find camera with id: %s', device.id);
             }
             if (action.name == "motionDetected") {
                 console.log("ifttt :: triggering %s on %s", action.name, device.id);
                 camera.motionDetected();
             } else {
-                return console.error("ifttt :: action %s doesn't exist in %s", action.name, device.id);
+                console.error("ifttt :: action %s doesn't exist in %s", action.name, device.id);
             }
         }
         res.send(200);
