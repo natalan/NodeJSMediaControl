@@ -3,8 +3,8 @@ var Backbone = require('backbone');
 const MOTION_TIMEOUT = 1000 * 60 * 5; // 5 mins
 
 var CameraModel = Backbone.Model.extend({
-    default: {
-        motion: false,
+    defaults: {
+        motion: 0,
         name: 'Foscam'
     },
     initialize: function() {
@@ -12,12 +12,12 @@ var CameraModel = Backbone.Model.extend({
     },
     motionDetected: function() {
         var self = this;
-        this.set('motion', true);
+        this.set('motion', 1);
         if (this.motionTimer) {
             clearTimeout(this.motionTimer);
         } else {
             this.motionTimer = setTimeout(function() {
-                self.set('motion', false);
+                self.set('motion', 0);
             }, MOTION_TIMEOUT);
         }
     }

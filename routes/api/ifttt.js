@@ -3,6 +3,30 @@ var config = require('../../config/'),
 
 var Cameras = require('../../collections/Cameras');
 
+var getDevice = function(data) {
+    var _type,
+        _id = data.title;
+    if (data.categories.length) {
+        _type = data.categories[0];
+    }
+
+    if (_type == "camera") {
+        var __id= _id.toLowerCase();
+        if (__id.indexOf('porch') > -1) {
+            _id = 'porch';
+        } else if (__id.indexOf('garage') > -1) {
+            _id = 'garage';
+        } else if (__id.indexOf('living') > -1) {
+            _id = 'livingRoom';
+        }
+    }
+
+    return {
+        "type": _type,
+        "id": _id
+    }
+};
+
 module.exports = function(app) {
     app.post('/xmlrpc.php', ifttt, function (req, res) {
         /* req.data should look something like the object below.
@@ -18,10 +42,7 @@ module.exports = function(app) {
          */
 
         var data = req.data,
-            device = {
-                type: data.title.split('.')[0],
-                id: data.title.split('.')[1]
-            },
+            device = getDevice(data),
             actionArray = data.description.split('.'),
             action = {};
 
