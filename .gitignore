@@ -8,3 +8,5 @@ collections.zip
 newrelic_agent.log
 /public/version.json
 stylesheets/main.css
+.DS_Store
+public/stylesheets/style.css
