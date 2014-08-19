@@ -21,6 +21,10 @@ var config = convict({
             doc: "session secret",
             format: String,
             default: ""
+        },
+        auth: {
+            user: "basicAuthUser",
+            password: "basicAuthPassword"
         }
     },
     tv: {

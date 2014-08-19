@@ -2,6 +2,8 @@ var config = require('../../config'),
     _ = require('underscore'),
     fs = require("fs");
 
+var auth = require('../../utils/auth');
+
 module.exports = function(app) {
     var endpoints = {};
     fs.readdirSync(__dirname).forEach(function(file) {
@@ -9,7 +11,7 @@ module.exports = function(app) {
         endpoints[file.replace('.js', '')] = require('./' + file)(app);
     });
 
-    app.get('/api', function(req, res) {
+    app.get('/api', auth, function(req, res) {
         res.json(endpoints);
     });
 };

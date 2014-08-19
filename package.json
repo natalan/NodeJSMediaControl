@@ -6,9 +6,11 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "backbone": "^1.1.2",
     "bluebird": "^1.2.2",
     "convict": "^0.4.2",
     "express": "3.5.1",
+    "express-ifttt": "0.0.1",
     "hjs": "*",
     "less-middleware": "~0.1.15",
     "newrelic": "^1.9.1",

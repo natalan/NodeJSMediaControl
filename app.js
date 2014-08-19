@@ -14,7 +14,6 @@ app.set('port', config.get("host.port"));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hjs');
 app.configure(function() {
-    app.use(express.basicAuth('basicAuthUser', 'basicAuthPassword'));
     app.use(express.logger('dev'));
     app.use(express.cookieParser());
     app.use(express.bodyParser({limit: '50mb'}));

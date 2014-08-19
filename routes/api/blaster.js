@@ -7,10 +7,12 @@ var Blaster = new iTach({
 });
 var endpoint = '/api/blaster';
 
+var ensureAuth = require('../../utils/auth');
+
 var COMMANDS = require('../../commands.json');
 
 module.exports = function(app) {
-    app.post(endpoint + '/learn', function(req, res) {
+    app.post(endpoint + '/learn', ensureAuth, function(req, res) {
         Blaster.learn(function done(err, code) {
             if (err) {
                 res.json(err);
@@ -20,7 +22,7 @@ module.exports = function(app) {
         });
     });
 
-    app.post(endpoint + '/send', function(req, res) {
+    app.post(endpoint + '/send', ensureAuth, function(req, res) {
         console.log('*** iTach :: Command: ', req.body.command);
 
         var command = COMMANDS[req.body.command];
