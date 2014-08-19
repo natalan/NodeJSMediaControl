@@ -4,7 +4,7 @@ var config = require('../../config/'),
 var Cameras = require('../../collections/Cameras');
 
 module.exports = function(app) {
-    app.get('/xmlrpc.php', ifttt, function (req, res) {
+    app.post('/xmlrpc.php', ifttt, function (req, res) {
         /* req.data should look something like the object below.
          {
          username: 'username',
