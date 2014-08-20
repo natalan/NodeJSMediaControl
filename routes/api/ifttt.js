@@ -40,7 +40,7 @@ module.exports = function(app) {
          post_status: 'publish'
          }
          */
-
+        console.log("ifttt :: received data from ifttt", req.data);
         var data = req.data,
             device = getDevice(data),
             actionArray = data.description.split('.'),
