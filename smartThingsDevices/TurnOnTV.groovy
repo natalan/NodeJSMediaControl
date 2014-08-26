@@ -1,11 +1,11 @@
 /**
- *	Morning Routine
+ *	Turn on/off TV by Zwave Remote
  *
  *	Author: Andrei Zharov
  *	Date: 2014-5-21
  */
 definition(
-    name: "Turn On TV by Zwave Remote",
+    name: "Control TV by Zwave Remote",
     namespace: "belmass@gmail.com",
     author: "Andrei Zharov",
     description: "Routine to turn on tv, receiver, and switch to dvr hdmi input",
@@ -48,7 +48,6 @@ def configureButton() {
 		  		metadata: [ 
 			        values: ["1", "2", "3", "4" ]
 				]
-			input "actionType", "enum", title: "Pick action type", required: true, metadata: [ values: [ 'pushed', 'held' ] ]
 		}
 	})
 }
@@ -71,7 +70,7 @@ def configured() {
 }
 
 def buttonConfigured() {
-	return settings["buttonNumber"] && settings["actionType"]
+	return settings["buttonNumber"]
 }
 
 def buttonEvent(evt){
@@ -83,12 +82,20 @@ def buttonEvent(evt){
 	
 		def recentEvents = buttonDevice.eventsSince(new Date(now() - 3000)).findAll{it.value == evt.value && it.data == evt.data}
 		log.debug "Found ${recentEvents.size()?:0} events in past 3 seconds"
+        log.debug "Going forward..."
 	
 		if(recentEvents.size <= 1){
-			def button = settings["buttonNumber"]
+			def settingsButton = settings["buttonNumber"]
+			def button = "{\"buttonNumber\":$settingsButton}" //hate this assignment. Need to find how to do regex or parse json
 			def action = settings["actionType"]
-			if (buttonNumber == button && value == action) {
-				executeHandlers()
+
+			if (buttonNumber == button) {
+            	log.debug "Button number is matching button specified in settings"
+				if (value == "pushed") {
+					turnOn()
+				} else if (value == "held") {
+					turnOff()
+				}				
 			} else {
 				log.debug "Pressed some other button. Not $button. Or action wasn't $action"
 			}
@@ -98,16 +105,25 @@ def buttonEvent(evt){
 	}
 }
 
-def executeHandlers() {
-	log.debug "executeHandlers: $buttonNumber - $value"
+def turnOn() {
+	log.debug "Turining on the system"
 	settings["tv"].on();
-	settings["receiver"].on();
+	settings["receiver"].on()
 	runIn(5, "switchReceiverToDVR")
-	
+}
+
+def turnOff() {
+	log.debug "Turning off the system"
+	settings["tv"].off()
+	settings["receiver"].off()
+}
+
+def turnOffTv() {
+	settings["tv"].off()
 }
 
 def switchReceiverToDVR() {
-	settings["receiver"].dvr();
+	settings["receiver"].dvr()
 }
 
 // execution filter methods
